@@ -1,4 +1,4 @@
-name: Docker
+name: Docker Build & Push
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -14,16 +14,17 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "main" ]
-
+  workflow_dispatch:
+  
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
+  IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
-  build:
+  build_push:
 
     runs-on: ubuntu-latest
     permissions:
